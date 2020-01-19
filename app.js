@@ -13,18 +13,31 @@ function generatediv() {
                     a = new Date(a.birthday);
                     b = new Date(b.birthday);
                     return (b - a);
-                }
-                );
+                });
                 if (sortedResult && sortedResult.length > 0) {
                     sortedResult.forEach(element => {
                         createChildNodes(element);
                     });
                 }
+
+                var childElement = document.getElementsByClassName("mainbody");
+                Array.prototype.forEach.call(childElement, function (el) {
+                    if (!el.hasChildNodes()) {
+                        var item = document.createElement("div");
+                        item.setAttribute("class", "empty-node");
+                        item.innerHTML = ':S';
+                        el.appendChild(item);
+                    }
+                });
             }
+        }
+        else {
+            alert('invalid json');
+            return false;
         }
     }
     catch (e) {
-        alert('invalid input');
+        alert('error occured..');
         return;
     }
 }
@@ -38,26 +51,16 @@ function clearChildNodes() {
 
 function createChildNodes(element) {
     const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-
     const month = (new Date(element.birthday)).getMonth();
-
     var ParentElement = document.getElementById(monthNames[month]);
     var childElement = ParentElement.getElementsByClassName("mainbody")[0];
-    //childElement.innerHTML = '';
-    // var number = parseInt(document.getElementById('numberInput').value);
-    //    for (var i = 0; i < number; i++) {
-    // var info = `I am div ${i}`;
+    childElement.style["grid-template-columns"] = "repeat(3,1fr)";
     const initials = element.name.split(" ").map((n) => n[0]).join("");
     var info = initials;
     var item = document.createElement("div");
-    // childElement.setAttribute("class","flex-container");
-    // item.setAttribute("id", `${ParentElement.id}-${i}`);
-    item.setAttribute("data-content", element.name);
     item.setAttribute("class", "child-item");
     item.innerHTML = info;
-
     childElement.appendChild(item);
-    //   }
 }
 
 function isJSON(str) {
@@ -66,9 +69,4 @@ function isJSON(str) {
     } catch (e) {
         return false;
     }
-}
-
-function convertToDate(dateString) {
-    var dateArr = dateString.split("/");
-    return new Date(+dateArr[2], dateArr[1] - 1, dateArr[0]);
 }
