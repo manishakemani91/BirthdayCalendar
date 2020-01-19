@@ -117,3 +117,16 @@ button {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
+
+[data-tooltip]:before {            
+    position : absolute;
+     content : attr(data-tooltip);
+     color: black;
+     opacity : 0;
+     top: 50%;
+     z-index: 1;
+}
+
+[data-tooltip]:hover:before {        
+    opacity : 1;
+}

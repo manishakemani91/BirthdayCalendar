@@ -24,6 +24,7 @@ function generatediv() {
                 Array.prototype.forEach.call(childElement, function (el) {
                     if (!el.hasChildNodes()) {
                         var item = document.createElement("div");
+                        item.setAttribute("data-tooltip", 'No Birthday');
                         item.setAttribute("class", "empty-node");
                         item.innerHTML = ':S';
                         el.appendChild(item);
@@ -58,6 +59,7 @@ function createChildNodes(element) {
     const initials = element.name.split(" ").map((n) => n[0]).join("");
     var info = initials;
     var item = document.createElement("div");
+    item.setAttribute("data-tooltip", element.name);
     item.setAttribute("class", "child-item");
     item.innerHTML = info;
     childElement.appendChild(item);
